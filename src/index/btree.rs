@@ -12,7 +12,7 @@ pub struct BTree {
 }
 
 impl BTree {
-    pub fn new() -> Self{
+    pub fn new() -> Self {
         Self {
             tree: Arc::new(RwLock::new(BTreeMap::new())),
         }
@@ -46,19 +46,43 @@ mod tests {
     #[test]
     fn test_btree_put() {
         let bt = BTree::new();
-        let res1 = bt.put("".as_bytes().to_vec(), LogRecordPos{file_id: 1, offset: 10});
+        let res1 = bt.put(
+            "".as_bytes().to_vec(),
+            LogRecordPos {
+                file_id: 1,
+                offset: 10,
+            },
+        );
         assert_eq!(res1, true);
-    
-        let res2 = bt.put("aa".as_bytes().to_vec(), LogRecordPos{file_id: 11, offset: 22});
+
+        let res2 = bt.put(
+            "aa".as_bytes().to_vec(),
+            LogRecordPos {
+                file_id: 11,
+                offset: 22,
+            },
+        );
         assert_eq!(res2, true);
     }
 
     #[test]
     fn test_btree_get() {
         let bt = BTree::new();
-        let res1 = bt.put("".as_bytes().to_vec(), LogRecordPos{file_id: 1, offset: 10});
+        let res1 = bt.put(
+            "".as_bytes().to_vec(),
+            LogRecordPos {
+                file_id: 1,
+                offset: 10,
+            },
+        );
         assert_eq!(res1, true);
-        let res2 = bt.put("aa".as_bytes().to_vec(), LogRecordPos{file_id: 11, offset: 22});
+        let res2 = bt.put(
+            "aa".as_bytes().to_vec(),
+            LogRecordPos {
+                file_id: 11,
+                offset: 22,
+            },
+        );
         assert_eq!(res2, true);
 
         let pos1 = bt.get("".as_bytes().to_vec());
@@ -76,9 +100,21 @@ mod tests {
     #[test]
     fn test_btree_delete() {
         let bt = BTree::new();
-        let res1 = bt.put("".as_bytes().to_vec(), LogRecordPos{file_id: 1, offset: 10});
+        let res1 = bt.put(
+            "".as_bytes().to_vec(),
+            LogRecordPos {
+                file_id: 1,
+                offset: 10,
+            },
+        );
         assert_eq!(res1, true);
-        let res2 = bt.put("aa".as_bytes().to_vec(), LogRecordPos{file_id: 11, offset: 22});
+        let res2 = bt.put(
+            "aa".as_bytes().to_vec(),
+            LogRecordPos {
+                file_id: 11,
+                offset: 22,
+            },
+        );
         assert_eq!(res2, true);
 
         let del1 = bt.delete("".as_bytes().to_vec());
@@ -91,4 +127,3 @@ mod tests {
         assert!(!del3);
     }
 }
-
