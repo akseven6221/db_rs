@@ -20,7 +20,7 @@ const INITIAL_FILE_ID: u32 = 0;
 pub struct Engine {
     options: Arc<Options>,
     active_file: Arc<RwLock<DataFile>>, // 当前活跃数据文件
-    older_files: Arc<RwLock<HashMap<u32, DataFile>>>,  // 旧的数据文件
+    older_files: Arc<RwLock<HashMap<u32, DataFile>>>, // 旧的数据文件
     index: Box<dyn index::Indexer>,     // 数据内存索引
     file_ids: Vec<u32>, // 数据库启动时的文件 id，只用于加载索引时使用，不能在其他的地方更新或使用
 }
@@ -109,7 +109,7 @@ impl Engine {
     }
 
     // 根据 key 删除对应的数据
-    pub fn delete(&self, key: Bytes) -> Result<()>{
+    pub fn delete(&self, key: Bytes) -> Result<()> {
         // 判断 key 的有效性
         if key.is_empty() {
             return Err(Errors::KeyIsEmpty);
@@ -118,7 +118,7 @@ impl Engine {
         // 从内存共享索引中取出对应的数据，不存在的直接返回
         let pos = self.index.get(key.to_vec());
         if pos.is_none() {
-            return Ok(())
+            return Ok(());
         }
 
         // 构造 LogRecord，表示其是可以被删除的
@@ -274,7 +274,7 @@ impl Engine {
                 }
 
                 // 递增 offset，下一次读取的时候从新的位置开始
-                offset += size;
+                offset += size as u64;
             }
 
             // 设置活跃文件的 offset
@@ -285,8 +285,6 @@ impl Engine {
 
         Ok(())
     }
-
-    
 }
 
 // 从数据目录中加载数据文件
