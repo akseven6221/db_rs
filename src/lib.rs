@@ -1,6 +1,11 @@
 mod data;
-mod db;
+pub mod db;
 mod errors;
 mod fio;
 mod index;
-mod options;
+pub mod options;
+
+mod util;
+
+#[cfg(test)]
+mod db_tests;
