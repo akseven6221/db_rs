@@ -32,7 +32,7 @@ pub struct ReadLogRecord {
 
 impl LogRecord {
     // encode 对 LogRecord 进行编码，返回字节数组及长度
-    // 
+    //
     // +-------------+-------------+------------+-----------+------------+
     // |  type 类型   |  key size   | value size |   key     |    value   |
     // +-------------+-------------+------------+-----------+------------+
@@ -70,7 +70,6 @@ impl LogRecord {
         buf.put_u32(crc);
 
         (buf.to_vec(), crc)
-        
     }
 
     // LogRecord 编码后的长度
